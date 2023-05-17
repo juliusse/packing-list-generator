@@ -18,30 +18,6 @@ const config: Category[] = [
     name: "Zelten",
     items: [{ name: "Zelt", amount: 1, type: "FIX" }],
   },
-  {
-    name: "Klettern",
-    items: [{ name: "Exen", amount: 12, type: "FIX" }],
-  },
-  {
-    name: "Zelten",
-    items: [{ name: "Zelt", amount: 1, type: "FIX" }],
-  },
-  {
-    name: "Klettern",
-    items: [{ name: "Exen", amount: 12, type: "FIX" }],
-  },
-  {
-    name: "Zelten",
-    items: [{ name: "Zelt", amount: 1, type: "FIX" }],
-  },
-  {
-    name: "Klettern",
-    items: [{ name: "Exen", amount: 12, type: "FIX" }],
-  },
-  {
-    name: "Zelten",
-    items: [{ name: "Zelt", amount: 1, type: "FIX" }],
-  },
 ];
 
 export default config;

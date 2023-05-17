@@ -26,14 +26,13 @@ const App: React.FC = () => {
 
   const handleCategoryChange = (categoryName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
-
-      if(event.target.checked) {
+      if (event.target.checked) {
         categories.add(categoryName);
       } else {
         categories.delete(categoryName);
       }
       setCategories(categories);
-    }
+    };
   };
 
   return (
@@ -55,7 +54,12 @@ const App: React.FC = () => {
               {elements.map((element) => {
                 return (
                   <Col key={`category-${element.name}`}>
-                    <input type="checkbox" onChange={handleCategoryChange(element.name)} /> {element.name}
+                    <input
+                      id={`category-${element.name}`}
+                      type="checkbox"
+                      onChange={handleCategoryChange(element.name)}
+                    />
+                    &nbsp;<label htmlFor={`category-${element.name}`}>{element.name}</label>
                   </Col>
                 );
               })}
