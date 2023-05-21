@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { Col, Container, Navbar, Row } from "react-bootstrap";
-import config from "./Config";
+import config, { Item } from "./Config";
 
 function chunkArray<T>(array: T[], chunkSize: number): T[][] {
   const chunks: T[][] = [];
@@ -17,7 +17,8 @@ function chunkArray<T>(array: T[], chunkSize: number): T[][] {
 
 const App: React.FC = () => {
   let [numDays, setNumDays] = useState("7");
-  let [categories, setCategories] = useState<Set<string>>(new Set());
+  let [categories, setCategories] = useState<string[]>([]);
+  let [items, setItems] = useState<Set<Item>>(new Set());
 
   const configChunks = chunkArray(config, 4);
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +28,26 @@ const App: React.FC = () => {
   const handleCategoryChange = (categoryName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
       if (event.target.checked) {
-        categories.add(categoryName);
+        categories.push(categoryName)
+        categories = [...categories];
       } else {
-        categories.delete(categoryName);
+        categories = categories.filter(c => c != categoryName);
       }
       setCategories(categories);
+      console.log(categories);
     };
   };
+
+  useEffect(() => {
+    const newItems = new Set<Item>();
+    categories.forEach(c => {
+      const categoryItems = config.find(c2 => c2.name == c)?.items;
+      // @ts-ignore
+      categoryItems?.forEach(i => newItems.add(i));
+    })
+    setItems(newItems);
+    console.log(newItems);
+  }, [categories]);
 
   return (
     <div className="App">
@@ -66,6 +80,15 @@ const App: React.FC = () => {
             </Row>
           );
         })}
+      </Container>
+      <Container>
+      {[...items].map((item) => {
+        return (
+        <Row key={item.name}>
+          {item.name}: {item.amount}
+        </Row>
+        );
+      })}
       </Container>
     </div>
   );
