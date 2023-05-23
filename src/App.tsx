@@ -16,10 +16,11 @@ function chunkArray<T>(array: T[], chunkSize: number): T[][] {
 }
 
 const App: React.FC = () => {
-  let [numDays, setNumDays] = useState("7");
-  let [categories, setCategories] = useState<string[]>([]);
-  let [items, setItems] = useState<Set<Item>>(new Set());
+  const [numDays, setNumDays] = useState("7");
+  const [categories, setCategories] = useState<string[]>([]);
+  const [showConfiguration, setShowConfiguration] = useState<boolean>(true);
 
+  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, number>>>(new Map());
   const configChunks = chunkArray(config, 4);
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumDays(event.target.value);
@@ -27,69 +28,121 @@ const App: React.FC = () => {
 
   const handleCategoryChange = (categoryName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
+      let newCategories: string[];
       if (event.target.checked) {
-        categories.push(categoryName)
-        categories = [...categories];
+        categories.push(categoryName);
+        newCategories = [...categories];
       } else {
-        categories = categories.filter(c => c != categoryName);
+        newCategories = categories.filter((c) => c != categoryName);
       }
-      setCategories(categories);
-      console.log(categories);
+      setCategories(newCategories);
+      console.log(newCategories);
     };
   };
 
+  const handleShowConfigurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setShowConfiguration(event.target.checked);
+  };
+
   useEffect(() => {
-    const newItems = new Set<Item>();
-    categories.forEach(c => {
-      const categoryItems = config.find(c2 => c2.name == c)?.items;
-      // @ts-ignore
-      categoryItems?.forEach(i => newItems.add(i));
-    })
-    setItems(newItems);
-    console.log(newItems);
-  }, [categories]);
+    const itemGroups: Map<string, Map<string, number>> = new Map();
+
+    categories.forEach((c) => {
+      const categoryItems = config.find((c2) => c2.name == c)?.items;
+
+      categoryItems?.forEach((item) => {
+        const group = item.itemCategory;
+        if (!itemGroups.has(group)) {
+          itemGroups.set(group, new Map());
+        }
+
+        const itemGroup = itemGroups.get(group);
+        if (itemGroup?.has(item.name)) {
+          // TODO
+        } else {
+          const amount =
+            item.type === "FIX" ? item.amount : Math.ceil(item.amount * Number.parseInt(numDays));
+          itemGroup?.set(item.name, amount);
+        }
+      });
+    });
+    setItemGroups(itemGroups);
+    console.log(itemGroups);
+  }, [categories, numDays]);
+
+  useEffect(() => {
+    document.addEventListener("keydown", function (event) {
+      if (event.key === ".") {
+        setShowConfiguration(!showConfiguration);
+        console.log(showConfiguration, !showConfiguration);
+      }
+    });
+  }, []);
 
   return (
     <div className="App">
       <Navbar bg="light">
         <Container>
-          <Navbar.Brand href="#home">Packing List Generator</Navbar.Brand>
+          <Navbar.Brand href="#home">
+            Packing List Generator &nbsp;
+            <input
+              type="checkbox"
+              checked={showConfiguration}
+              onChange={handleShowConfigurationChange}
+            />
+          </Navbar.Brand>
         </Container>
       </Navbar>
-      <Container className="configuration" style={{ paddingTop: "10px" }}>
-        <Row>
-          <Col>
-            How many days? <input value={numDays} onChange={handleDayChange} />
-          </Col>
-        </Row>
-        {configChunks.map((elements, index) => {
+      {showConfiguration && (
+        <Container className="configuration" style={{ paddingTop: "10px" }}>
+          <Row>
+            <Col>
+              How many days? <input type="number" value={numDays} onChange={handleDayChange} />
+            </Col>
+          </Row>
+          {configChunks.map((elements, index) => {
+            return (
+              <Row key={`configRow-${index}`}>
+                {elements.map((element) => {
+                  return (
+                    <Col key={`category-${element.name}`}>
+                      <input
+                        id={`category-${element.name}`}
+                        type="checkbox"
+                        onChange={handleCategoryChange(element.name)}
+                      />
+                      &nbsp;<label htmlFor={`category-${element.name}`}>{element.name}</label>
+                    </Col>
+                  );
+                })}
+              </Row>
+            );
+          })}
+        </Container>
+      )}
+      <div className="packing-list">
+        {[...itemGroups].map(([title, items]) => {
           return (
-            <Row key={`configRow-${index}`}>
-              {elements.map((element) => {
+            <div key={title} className="packing-list-category">
+              <div className="packing-list-category-title">{title}</div>
+              {[...items].map(([itemTitle, amount], index) => {
+                const alternatingClass = index % 2 === 0 ? "even" : "uneven";
                 return (
-                  <Col key={`category-${element.name}`}>
-                    <input
-                      id={`category-${element.name}`}
-                      type="checkbox"
-                      onChange={handleCategoryChange(element.name)}
-                    />
-                    &nbsp;<label htmlFor={`category-${element.name}`}>{element.name}</label>
-                  </Col>
+                  <div
+                    key={`${title}-${itemTitle}`}
+                    className={`packing-list-category-item ${alternatingClass}`}
+                  >
+                    <div className="name">
+                      {amount} x {itemTitle}
+                    </div>
+                    <div className="checkbox"></div>
+                  </div>
                 );
               })}
-            </Row>
+            </div>
           );
         })}
-      </Container>
-      <Container>
-      {[...items].map((item) => {
-        return (
-        <Row key={item.name}>
-          {item.name}: {item.amount}
-        </Row>
-        );
-      })}
-      </Container>
+      </div>
     </div>
   );
 };
