@@ -1,8 +1,8 @@
 export type Item = {
   itemCategory: string;
   name: string;
-  amount: number;
-  type: "FIX" | "PER_DAY";
+  amount?: number;
+  type: "FIX" | "PER_DAY" | "NO_AMOUNT";
 };
 
 export type Category = {
@@ -42,26 +42,35 @@ const sonnencreme: Item = { itemCategory, name: "Sonnencreme", amount: 1, type: 
 const waschlappen: Item = { itemCategory, name: "Waschlappen", amount: 1, type: "FIX" };
 const duschzeug: Item = { itemCategory, name: "Duschzeug", amount: 1, type: "FIX" };
 const handtuch: Item = { itemCategory, name: "Handtuch", amount: 2, type: "FIX" };
-const pinzetteScherePfeile: Item = { itemCategory, name: "Pinzette/Nagelschere/Pfeile", amount: 1, type: "FIX" };
+const pinzetteScherePfeile: Item = {
+  itemCategory,
+  name: "Pinzette/Nagelschere/Pfeile",
+  amount: 1,
+  type: "FIX",
+};
 
 // Gadgets
 itemCategory = "Misc/Technik";
-const sonnenbrille: Item = { itemCategory, name: "Sonnenbrille", amount: 1, type: "FIX" };
-const brille: Item = { itemCategory, name: "Brille", amount: 1, type: "FIX" };
-const ersteHilfePlfasterIbu: Item = { itemCategory, name: "Erste-Hilfe/Pflaster/Ibu", amount: 1, type: "FIX" };
-const handy: Item = { itemCategory, name: "Handy", amount: 1, type: "FIX" };
-const ladekabel: Item = { itemCategory, name: "Ladekabel", amount: 1, type: "FIX" };
-const powerbank: Item = { itemCategory, name: "Powerbank (voll)", amount: 1, type: "FIX" };
-const kindle: Item = { itemCategory, name: "Kindle/Tablet", amount: 1, type: "FIX" };
-const stirnlampe: Item = { itemCategory, name: "Stirnlampe", amount: 1, type: "FIX" };
-const buecher: Item = { itemCategory, name: "Bücher", amount: 1, type: "FIX" };
-const kamera: Item = { itemCategory, name: "Kamera", amount: 1, type: "FIX" };
-const picknickDecke: Item = { itemCategory, name: "Picknickdecke", amount: 1, type: "FIX" };
-const kopfhoehrer: Item = { itemCategory, name: "Kopfhöhrer (NC?)", amount: 1, type: "FIX" };
-const spiele: Item = { itemCategory, name: "Spiele", amount: 1, type: "FIX" };
-const plastiktueten: Item = { itemCategory, name: "Plastiktüten", amount: 1, type: "FIX" };
-const stoffbeutel: Item = { itemCategory, name: "Stoffbeutel", amount: 1, type: "FIX" };
-const kleineWassersaecke: Item = { itemCategory, name: "Wassersack (5/10L)", amount: 1, type: "FIX" };
+const sonnenbrille: Item = { itemCategory, name: "Sonnenbrille", type: "NO_AMOUNT" };
+const brille: Item = { itemCategory, name: "Brille", type: "NO_AMOUNT" };
+const ersteHilfePlfasterIbu: Item = {
+  itemCategory,
+  name: "Erste-Hilfe/Pflaster/Ibu",
+  type: "NO_AMOUNT",
+};
+const handy: Item = { itemCategory, name: "Handy", type: "NO_AMOUNT" };
+const ladekabel: Item = { itemCategory, name: "Ladekabel", type: "NO_AMOUNT" };
+const powerbank: Item = { itemCategory, name: "Powerbank (voll)", type: "NO_AMOUNT" };
+const kindle: Item = { itemCategory, name: "Kindle/Tablet", type: "NO_AMOUNT" };
+const stirnlampe: Item = { itemCategory, name: "Stirnlampe", type: "NO_AMOUNT" };
+const buecher: Item = { itemCategory, name: "Bücher", type: "NO_AMOUNT" };
+const kamera: Item = { itemCategory, name: "Kamera", type: "NO_AMOUNT" };
+const picknickDecke: Item = { itemCategory, name: "Picknickdecke", type: "NO_AMOUNT" };
+const kopfhoehrer: Item = { itemCategory, name: "Kopfhöhrer (NC?)", type: "NO_AMOUNT" };
+const spiele: Item = { itemCategory, name: "Spiele", type: "NO_AMOUNT" };
+const plastiktueten: Item = { itemCategory, name: "Plastiktüten", type: "NO_AMOUNT" };
+const stoffbeutel: Item = { itemCategory, name: "Stoffbeutel", type: "NO_AMOUNT" };
+const kleineWassersaecke: Item = { itemCategory, name: "Wassersack (5/10L)", type: "NO_AMOUNT" };
 
 // Küche
 itemCategory = "Küche";
@@ -76,13 +85,12 @@ const schokokekse: Item = { itemCategory, name: "Schokokekse", amount: 0.33, typ
 
 // Werkzeug
 itemCategory = "Werkzeug";
-const schraubenzieher: Item = { itemCategory, name: "Schraubenzieher", amount: 1, type: "FIX" };
-const imbus: Item = { itemCategory, name: "Imbus", amount: 1, type: "FIX" };
-const spannerSchluessel: Item = { itemCategory, name: "Spanner-Schlüssel", amount: 1, type: "FIX" };
+const schraubenzieher: Item = { itemCategory, name: "Schraubenzieher", type: "NO_AMOUNT" };
+const imbus: Item = { itemCategory, name: "Imbus", type: "NO_AMOUNT" };
+const spannerSchluessel: Item = { itemCategory, name: "Spanner-Schlüssel", type: "NO_AMOUNT" };
 const schlauch: Item = { itemCategory, name: "Schlauch", amount: 2, type: "FIX" };
-const luftpumpe: Item = { itemCategory, name: "Luftpumpe", amount: 1, type: "FIX" };
-const kettenoel: Item = { itemCategory, name: "Kettenöl", amount: 1, type: "FIX" };
-
+const luftpumpe: Item = { itemCategory, name: "Luftpumpe", type: "NO_AMOUNT" };
+const kettenoel: Item = { itemCategory, name: "Kettenöl", type: "NO_AMOUNT" };
 
 // Fahrrad
 itemCategory = "Fahrrad";
@@ -99,7 +107,12 @@ const config: Category[] = [
       { itemCategory: "Kletterequipment", name: "Exen", amount: 12, type: "FIX" },
       { itemCategory: "Kletterequipment", name: "Klettergurt", amount: 1, type: "FIX" },
       { itemCategory: "Kletterequipment", name: "Sicherungsgerät", amount: 1, type: "FIX" },
-      { itemCategory: "Kletterequipment", name: "Schlingen/Karabiner/Tuber", amount: 1, type: "FIX" },
+      {
+        itemCategory: "Kletterequipment",
+        name: "Schlingen/Karabiner/Tuber",
+        amount: 1,
+        type: "FIX",
+      },
       { itemCategory: "Kletterequipment", name: "Helm", amount: 1, type: "FIX" },
       { itemCategory: "Kletterequipment", name: "Kletterschuhe", amount: 2, type: "FIX" },
       // { name: "Kletterhose", amount: 1, type: "FIX" },

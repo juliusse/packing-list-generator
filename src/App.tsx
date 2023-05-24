@@ -20,7 +20,7 @@ const App: React.FC = () => {
   const [categories, setCategories] = useState<string[]>([]);
   const [showConfiguration, setShowConfiguration] = useState<boolean>(true);
 
-  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, number>>>(new Map());
+  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, number | null>>>(new Map());
   const configChunks = chunkArray(config, 4);
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumDays(event.target.value);
@@ -45,7 +45,7 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
-    const itemGroups: Map<string, Map<string, number>> = new Map();
+    const itemGroups: Map<string, Map<string, number | null>> = new Map();
 
     categories.forEach((c) => {
       const categoryItems = config.find((c2) => c2.name == c)?.items;
@@ -60,8 +60,18 @@ const App: React.FC = () => {
         if (itemGroup?.has(item.name)) {
           // TODO
         } else {
-          const amount =
-            item.type === "FIX" ? item.amount : Math.ceil(item.amount * Number.parseInt(numDays));
+          let amount: number | null = null;
+          switch (item.type) {
+            case "FIX":
+              amount = item.amount || null;
+              break;
+            case "PER_DAY":
+              amount = Math.ceil((item.amount || 1) * Number.parseInt(numDays));
+              break;
+            case "NO_AMOUNT":
+              amount = null;
+          }
+
           itemGroup?.set(item.name, amount);
         }
       });
@@ -125,7 +135,8 @@ const App: React.FC = () => {
                     className={`packing-list-category-item ${alternatingClass}`}
                   >
                     <div className="name">
-                      {amount} x {itemTitle}
+                      {amount && `${amount} x `}
+                      {itemTitle}
                     </div>
                     <div className="checkbox"></div>
                   </div>
