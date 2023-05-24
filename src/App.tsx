@@ -70,17 +70,8 @@ const App: React.FC = () => {
     console.log(itemGroups);
   }, [categories, numDays]);
 
-  useEffect(() => {
-    document.addEventListener("keydown", function (event) {
-      if (event.key === ".") {
-        setShowConfiguration(!showConfiguration);
-        console.log(showConfiguration, !showConfiguration);
-      }
-    });
-  }, []);
-
   return (
-    <div className="App">
+    <div className="app">
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">
@@ -109,6 +100,7 @@ const App: React.FC = () => {
                       <input
                         id={`category-${element.name}`}
                         type="checkbox"
+                        checked={categories.includes(element.name)}
                         onChange={handleCategoryChange(element.name)}
                       />
                       &nbsp;<label htmlFor={`category-${element.name}`}>{element.name}</label>
