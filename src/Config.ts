@@ -72,7 +72,7 @@ const taschenMesser: Item = { itemCategory, name: "Taschenmesser", amount: 1, ty
 // Essen
 itemCategory = "Essen";
 const nuesse: Item = { itemCategory, name: "Nüsse", amount: 1, type: "FIX" };
-const schokokekse: Item = { itemCategory, name: "Schokokekse", amount: 0.33, type: "FIX" };
+const schokokekse: Item = { itemCategory, name: "Schokokekse", amount: 0.33, type: "PER_DAY" };
 
 // Werkzeug
 itemCategory = "Werkzeug";

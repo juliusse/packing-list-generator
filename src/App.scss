@@ -22,39 +22,34 @@ body {
 }
 
 .packing-list {
-  margin: 0 auto;
-  width: 210mm;
   max-height: 290mm;
   display: flex;
   align-content: flex-start;
   flex-flow: column wrap;
   .packing-list-category {
-    margin: 5px 30px 0px 10px;
-    width: 360px;
+    margin: 5px 30px 0px 20px;
+    width: 330px;
     font-size: 13px;
     font-family: monospace;
     .packing-list-category-title {
-      border: 1px solid #999;
+      border: 1px solid #ddd;
       font-weight: bold;
       padding: 1px 3px 1px 3px;
       background: #ccc;
     }
     .packing-list-category-item {
-      //border: 1px solid black;
-      //border-top: none;
-      //padding: 3px;
       display: flex;
       flex-flow: row nowrap;
       .name {
-        border: 1px solid #999;
+        border: 1px solid #ddd;
         border-top: none;
-        padding: 1px 3px 1px 3px;
+        padding: 0px 3px 0px 3px;
         flex-grow: 1;
       }
       .checkbox {
         width: 30px;
-        border-bottom: 1px solid #999;
-        border-right: 1px solid #999;
+        border-bottom: 1px solid #ddd;
+        border-right: 1px solid #ddd;
       }
       &.uneven {
         background: #eee;
