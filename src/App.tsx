@@ -1,7 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { Col, Container, Navbar, Row } from "react-bootstrap";
-import config, { Item } from "./Config";
+
+export type Item = {
+  itemCategory: string;
+  name: string;
+  amount?: number;
+  type: "FIX" | "PER_DAY" | "NO_AMOUNT";
+};
+
+export type Category = {
+  name: string;
+  items: Item[];
+};
+
+declare global {
+  interface Window {
+    config: Category[];
+  }
+}
+
+const config = window.config;
 
 function chunkArray<T>(array: T[], chunkSize: number): T[][] {
   const chunks: T[][] = [];
@@ -48,7 +67,7 @@ const App: React.FC = () => {
     const itemGroups: Map<string, Map<string, number | null>> = new Map();
 
     categories.forEach((c) => {
-      const categoryItems = config.find((c2) => c2.name == c)?.items;
+      const categoryItems = (config.find((c2) => c2.name == c) as Category)?.items;
 
       categoryItems?.forEach((item) => {
         const group = item.itemCategory;
