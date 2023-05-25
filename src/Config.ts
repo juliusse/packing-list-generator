@@ -71,6 +71,7 @@ const spiele: Item = { itemCategory, name: "Spiele", type: "NO_AMOUNT" };
 const plastiktueten: Item = { itemCategory, name: "Plastiktüten", type: "NO_AMOUNT" };
 const stoffbeutel: Item = { itemCategory, name: "Stoffbeutel", type: "NO_AMOUNT" };
 const kleineWassersaecke: Item = { itemCategory, name: "Wassersack (5/10L)", type: "NO_AMOUNT" };
+const gpsTracks: Item = { itemCategory, name: "GPS Tracks", type: "NO_AMOUNT" };
 
 // Küche
 itemCategory = "Küche";
@@ -192,6 +193,7 @@ const config: Category[] = [
       plastiktueten,
       stoffbeutel,
       kleineWassersaecke,
+      gpsTracks,
 
       // Küche
       tupperbuechse,
