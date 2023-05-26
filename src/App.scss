@@ -21,6 +21,12 @@ body {
   background: white;
 }
 
+.link {
+  font-family: Verdana, serif;
+  color: #0a53be;
+  cursor: pointer;
+  font-weight: bold;
+}
 .packing-list {
   max-height: 290mm;
   display: flex;

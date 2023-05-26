@@ -1,4 +1,4 @@
- let itemCategory = "";
+let itemCategory = "";
 // Kleidung
 itemCategory = "Kleidung";
 const socken = { itemCategory, name: "Socken", amount: 0.3, type: "PER_DAY" };
@@ -17,9 +17,17 @@ const badehose = { itemCategory, name: "Badehose", amount: 1, type: "FIX" };
 const flipflops = { itemCategory, name: "Flipflops", amount: 1, type: "FIX" };
 const fahrradShirt = { itemCategory, name: "Fahrradshirt", amount: 2, type: "FIX" };
 const zipWanderhose = { itemCategory, name: "Zipwanderhose", amount: 1, type: "FIX" };
+const wanderhose = { itemCategory, name: "Wanderhose", amount: 1, type: "FIX" };
 const schlauchtuch = { itemCategory, name: "Schlauchtuch", amount: 1, type: "FIX" };
 const basecap = { itemCategory, name: "Basecap", amount: 1, type: "FIX" };
 const fahrradHandschuhe = { itemCategory, name: "Fahrradhandschuhe", amount: 1, type: "FIX" };
+const wandershirt = { itemCategory, name: "Wandershirt", amount: 3, type: "FIX" };
+const merinoUnterwaesche = { itemCategory, name: "Merinounterwäsche", amount: 1, type: "FIX" };
+const wanderSocken = { itemCategory, name: "Wandersocken", amount: 2, type: "FIX" };
+const wanderSchuhe = { itemCategory, name: "Wanderschuhe", amount: 1, type: "FIX" };
+const kletterHose = { itemCategory, name: "Kletterhose", amount: 1, type: "FIX" };
+const kletterShirt = { itemCategory, name: "Klettershirt", amount: 0.5, type: "PER_DAY" };
+const kletterPullover = { itemCategory, name: "Klettershirt", amount: 1, type: "FIX" };
 
 // Hygiene
 itemCategory = "Hygiene";
@@ -60,6 +68,7 @@ const plastiktueten = { itemCategory, name: "Plastiktüten", type: "NO_AMOUNT" }
 const stoffbeutel = { itemCategory, name: "Stoffbeutel", type: "NO_AMOUNT" };
 const kleineWassersaecke = { itemCategory, name: "Wassersack (5/10L)", type: "NO_AMOUNT" };
 const gpsTracks = { itemCategory, name: "GPS Tracks", type: "NO_AMOUNT" };
+const wanderstoecker = { itemCategory, name: "Wanderstöcker", type: "NO_AMOUNT" };
 
 // Küche
 itemCategory = "Küche";
@@ -83,34 +92,57 @@ const kettenoel = { itemCategory, name: "Kettenöl", type: "NO_AMOUNT" };
 
 // Fahrrad
 itemCategory = "Fahrrad";
+const fahrradSpanngurte = { itemCategory, name: "Fahrradspanngurte", amount: 6, type: "FIX" };
+
+// Klettern
+itemCategory = "Klettern";
+const kletterGurt = { itemCategory, name: "Klettergurt", type: "NO_AMOUNT" };
+const kletterHelm = { itemCategory, name: "Kletterhelm", type: "NO_AMOUNT" };
+const kletterSchuhe = { itemCategory, name: "Kletterschuhe", type: "NO_AMOUNT" };
+const kletterBrille = { itemCategory, name: "Kletterbrille", type: "NO_AMOUNT" };
+const sicherungsgeraet = { itemCategory, name: "Sicherungsgerät", type: "NO_AMOUNT" };
+const exen = { itemCategory, name: "Exen", amount: 12, type: "FIX" };
+const chalk = { itemCategory, name: "Chalk", type: "NO_AMOUNT" };
+const karabinerSchlingenTube = {
+  itemCategory,
+  name: "Karabiner, Schlingen, Tuber",
+  type: "NO_AMOUNT",
+};
+
+// Taschen
+itemCategory = "Taschen";
 const fahrradTasche = { itemCategory, name: "Fahrradtasche", amount: 2, type: "FIX" };
 const wasserRollSack = { itemCategory, name: "Wasserrollsack", amount: 1, type: "FIX" };
 const lenkerTasche = { itemCategory, name: "Lenkertasche", amount: 1, type: "FIX" };
 const werkzeugTasche = { itemCategory, name: "Werkzeugtasche", amount: 1, type: "FIX" };
-const fahrradSpanngurte = { itemCategory, name: "Fahrradspanngurte", amount: 6, type: "FIX" };
+const wanderRucksack = { itemCategory, name: "Wanderrucksack", amount: 1, type: "FIX" };
+const kleinerQuechuaRucksack = {
+  itemCategory,
+  name: "Kleiner Quechua Rucksack",
+  amount: 1,
+  type: "FIX",
+};
 
 const config = [
   {
-    name: "Fahrradtour",
+    name: "Basics",
     items: [
       // Kleidung
-      { itemCategory: unterwaesche.itemCategory, name: unterwaesche.name, amount: 3, type: "FIX" },
+      unterwaesche,
       socken,
+      tShirt,
       jeans,
-      { itemCategory: tShirt.itemCategory, name: tShirt.name, amount: 2, type: "FIX" },
+      kurzeHose,
       fleeceJacke,
-      fahrradShirt,
-      zipWanderhose,
+      pullover,
+      dickeSocken,
+      schlafshirt,
       jogginghose,
       regenjacke,
       softshelljacke,
       schlauchtuch,
       badehose,
       flipflops,
-      basecap,
-      schlafshirt,
-      dickeSocken,
-      fahrradHandschuhe,
 
       // Hygiene
       zahnbuerste,
@@ -122,21 +154,73 @@ const config = [
       duschzeug,
       pinzetteScherePfeile,
 
-      // Misc/Technik
-      picknickDecke,
+      // Misc
       sonnenbrille,
       brille,
       ersteHilfePlfasterIbu,
+      plastiktueten,
       handy,
       ladekabel,
       powerbank,
       kindle,
       stirnlampe,
       buecher,
-      kamera,
       kopfhoehrer,
+      kamera,
       spiele,
-      plastiktueten,
+    ],
+  },
+  {
+    name: "Wandern",
+    items: [
+      zipWanderhose,
+      merinoUnterwaesche,
+
+      wandershirt,
+      wanderhose,
+      wanderSocken,
+      wanderSchuhe,
+
+      wanderRucksack,
+      kleinerQuechuaRucksack,
+
+      tupperbuechse,
+      wanderstoecker,
+    ],
+  },
+  {
+    name: "Klettern",
+    items: [
+      kletterHose,
+      zipWanderhose,
+      kletterShirt,
+      kletterPullover,
+
+      wanderSchuhe,
+
+      tupperbuechse,
+
+      kletterGurt,
+      sicherungsgeraet,
+      exen,
+      chalk,
+      karabinerSchlingenTube,
+      kletterBrille,
+      kletterHelm,
+      kletterSchuhe,
+    ],
+  },
+  {
+    name: "Fahrradtour",
+    items: [
+      // Kleidung
+      fahrradShirt,
+      zipWanderhose,
+      basecap,
+      fahrradHandschuhe,
+
+      // Misc/Technik
+      picknickDecke,
       stoffbeutel,
       kleineWassersaecke,
       gpsTracks,

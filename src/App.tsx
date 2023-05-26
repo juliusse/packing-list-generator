@@ -36,7 +36,7 @@ function chunkArray<T>(array: T[], chunkSize: number): T[][] {
 
 const App: React.FC = () => {
   const [numDays, setNumDays] = useState("7");
-  const [categories, setCategories] = useState<string[]>([]);
+  const [categories, setCategories] = useState<string[]>(["Basics"]);
   const [showConfiguration, setShowConfiguration] = useState<boolean>(true);
 
   const [itemGroups, setItemGroups] = useState<Map<string, Map<string, number | null>>>(new Map());
@@ -63,6 +63,11 @@ const App: React.FC = () => {
     setShowConfiguration(event.target.checked);
   };
 
+  const handleItemClick = (category: string, item: string) => {
+    itemGroups.get(category)?.delete(item);
+    console.log(category, item);
+    setItemGroups(new Map(itemGroups));
+  };
   useEffect(() => {
     const itemGroups: Map<string, Map<string, number | null>> = new Map();
 
@@ -94,6 +99,10 @@ const App: React.FC = () => {
           itemGroup?.set(item.name, amount);
         }
       });
+    });
+
+    itemGroups.forEach((value, key) => {
+      itemGroups.set(key, new Map([...value.entries()].sort()));
     });
     setItemGroups(itemGroups);
     console.log(itemGroups);
@@ -157,7 +166,13 @@ const App: React.FC = () => {
                       {amount && `${amount} x `}
                       {itemTitle}
                     </div>
-                    <div className="checkbox"></div>
+                    <div className="checkbox">
+                      {showConfiguration && (
+                        <span className="link" onClick={() => handleItemClick(title, itemTitle)}>
+                          X
+                        </span>
+                      )}
+                    </div>
                   </div>
                 );
               })}
