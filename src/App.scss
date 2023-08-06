@@ -37,26 +37,35 @@ body {
     width: 330px;
     font-size: 13px;
     font-family: monospace;
-    .packing-list-category-title {
+    .name {
       border: 1px solid #ddd;
+      border-top: none;
+      padding: 0px 3px 0px 3px;
+      flex-grow: 1;
+    }
+    .weight {
+      width: 35px;
+      text-align: right;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+    .checkbox {
+      width: 30px;
+      border-bottom: 1px solid #ddd;
+      border-right: 1px solid #ddd;
+    }
+    .packing-list-category-title {
+      //border: 1px solid #ddd;
       font-weight: bold;
-      padding: 1px 3px 1px 3px;
+      //padding: 1px 3px 1px 3px;
       background: #ccc;
+      display: flex;
+      flex-flow: row nowrap;
     }
     .packing-list-category-item {
       display: flex;
       flex-flow: row nowrap;
-      .name {
-        border: 1px solid #ddd;
-        border-top: none;
-        padding: 0px 3px 0px 3px;
-        flex-grow: 1;
-      }
-      .checkbox {
-        width: 30px;
-        border-bottom: 1px solid #ddd;
-        border-right: 1px solid #ddd;
-      }
+
       &.uneven {
         background: #eee;
       }

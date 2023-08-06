@@ -5,8 +5,14 @@ import { Col, Container, Navbar, Row } from "react-bootstrap";
 export type Item = {
   itemCategory: string;
   name: string;
+  weight?: number;
   amount?: number;
   type: "FIX" | "PER_DAY" | "NO_AMOUNT";
+};
+
+export type ItemProperties = {
+  weight?: number;
+  amount?: number;
 };
 
 export type Category = {
@@ -39,7 +45,7 @@ const App: React.FC = () => {
   const [categories, setCategories] = useState<string[]>(["Basics"]);
   const [showConfiguration, setShowConfiguration] = useState<boolean>(true);
 
-  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, number | null>>>(new Map());
+  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, ItemProperties>>>(new Map());
   const configChunks = chunkArray(config, 4);
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumDays(event.target.value);
@@ -68,8 +74,22 @@ const App: React.FC = () => {
     console.log(category, item);
     setItemGroups(new Map(itemGroups));
   };
+
+  const calculateTotalWeight = () => {
+    let totalWeight = 0;
+    itemGroups.forEach((itemGroup) => {
+      itemGroup.forEach((properties) => {
+        const amount = properties.amount || 1;
+        if (properties.weight) {
+          totalWeight += properties.weight * amount;
+        }
+      });
+    });
+    return totalWeight;
+  };
+
   useEffect(() => {
-    const itemGroups: Map<string, Map<string, number | null>> = new Map();
+    const itemGroups: Map<string, Map<string, ItemProperties>> = new Map();
 
     categories.forEach((c) => {
       const categoryItems = (config.find((c2) => c2.name == c) as Category)?.items;
@@ -81,23 +101,20 @@ const App: React.FC = () => {
         }
 
         const itemGroup = itemGroups.get(group);
-        if (itemGroup?.has(item.name)) {
-          // TODO
-        } else {
-          let amount: number | null = null;
-          switch (item.type) {
-            case "FIX":
-              amount = item.amount || null;
-              break;
-            case "PER_DAY":
-              amount = Math.ceil((item.amount || 1) * Number.parseInt(numDays));
-              break;
-            case "NO_AMOUNT":
-              amount = null;
-          }
 
-          itemGroup?.set(item.name, amount);
+        let amount: number | undefined = undefined;
+        switch (item.type) {
+          case "FIX":
+            amount = item.amount || undefined;
+            break;
+          case "PER_DAY":
+            amount = Math.ceil((item.amount || 1) * Number.parseInt(numDays));
+            break;
+          case "NO_AMOUNT":
+            amount = undefined;
         }
+
+        itemGroup?.set(item.name, { weight: item.weight, amount });
       });
     });
 
@@ -119,6 +136,7 @@ const App: React.FC = () => {
               checked={showConfiguration}
               onChange={handleShowConfigurationChange}
             />
+            {calculateTotalWeight()}g
           </Navbar.Brand>
         </Container>
       </Navbar>
@@ -152,10 +170,22 @@ const App: React.FC = () => {
       )}
       <div className="packing-list">
         {[...itemGroups].map(([title, items]) => {
+          let groupTotalWeight = 0;
+          items.forEach((props) => {
+            const amount = props.amount || 1;
+            if (props.weight) {
+              groupTotalWeight += props.weight * amount;
+            }
+          });
+
           return (
             <div key={title} className="packing-list-category">
-              <div className="packing-list-category-title">{title}</div>
-              {[...items].map(([itemTitle, amount], index) => {
+              <div className="packing-list-category-title">
+                <div className="name">{title}</div>
+                <div className="weight">{`${groupTotalWeight}g`}</div>
+                <div className="checkbox"></div>
+              </div>
+              {[...items].map(([itemTitle, itemProperties], index) => {
                 const alternatingClass = index % 2 === 0 ? "even" : "uneven";
                 return (
                   <div
@@ -163,8 +193,12 @@ const App: React.FC = () => {
                     className={`packing-list-category-item ${alternatingClass}`}
                   >
                     <div className="name">
-                      {amount && `${amount} x `}
+                      {itemProperties.amount && `${itemProperties.amount} x `}
                       {itemTitle}
+                    </div>
+                    <div className="weight">
+                      {itemProperties.weight &&
+                        `${itemProperties.weight * (itemProperties.amount || 1)}g`}
                     </div>
                     <div className="checkbox">
                       {showConfiguration && (
