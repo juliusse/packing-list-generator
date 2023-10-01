@@ -3,6 +3,7 @@ import "./App.scss";
 import { Col, Container, Navbar, Row } from "react-bootstrap";
 
 export type Item = {
+  order: number;
   itemCategory: string;
   name: string;
   weight?: number;
@@ -11,6 +12,8 @@ export type Item = {
 };
 
 export type ItemProperties = {
+  order: number;
+  name: string;
   weight?: number;
   amount?: number;
 };
@@ -44,12 +47,32 @@ const App: React.FC = () => {
   const [numDays, setNumDays] = useState("7");
   const [categories, setCategories] = useState<string[]>(["Basics"]);
   const [showConfiguration, setShowConfiguration] = useState<boolean>(true);
+  const [title, setTitle] = useState("Packing List Generator");
 
   const [itemGroups, setItemGroups] = useState<Map<string, Map<string, ItemProperties>>>(new Map());
   const configChunks = chunkArray(config, 4);
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNumDays(event.target.value);
   };
+
+  const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
+  };
+
+  useEffect(() => {
+    function onKeyDown(e: { key: string }) {
+      if (e.key === "c") {
+        setShowConfiguration(true);
+      }
+      if (e.key === "v") {
+        setShowConfiguration(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
 
   const handleCategoryChange = (categoryName: string) => {
     return (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,10 +86,6 @@ const App: React.FC = () => {
       setCategories(newCategories);
       console.log(newCategories);
     };
-  };
-
-  const handleShowConfigurationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setShowConfiguration(event.target.checked);
   };
 
   const handleItemClick = (category: string, item: string) => {
@@ -114,7 +133,7 @@ const App: React.FC = () => {
             amount = undefined;
         }
 
-        itemGroup?.set(item.name, { weight: item.weight, amount });
+        itemGroup?.set(item.name, { ...item, amount });
       });
     });
 
@@ -130,18 +149,17 @@ const App: React.FC = () => {
       <Navbar bg="light">
         <Container>
           <Navbar.Brand href="#home">
-            Packing List Generator &nbsp;
-            <input
-              type="checkbox"
-              checked={showConfiguration}
-              onChange={handleShowConfigurationChange}
-            />
-            {calculateTotalWeight()}g
+            {title} - {numDays} Tage - {calculateTotalWeight()}g
           </Navbar.Brand>
         </Container>
       </Navbar>
       {showConfiguration && (
         <Container className="configuration" style={{ paddingTop: "10px" }}>
+          <Row>
+            <Col>
+              Title: <input type="text" hidden={!showConfiguration} value={title} onChange={handleTitleChange} />
+            </Col>
+          </Row>
           <Row>
             <Col>
               How many days? <input type="number" value={numDays} onChange={handleDayChange} />
@@ -185,31 +203,32 @@ const App: React.FC = () => {
                 <div className="weight">{`${groupTotalWeight}g`}</div>
                 <div className="checkbox"></div>
               </div>
-              {[...items].map(([itemTitle, itemProperties], index) => {
-                const alternatingClass = index % 2 === 0 ? "even" : "uneven";
-                return (
-                  <div
-                    key={`${title}-${itemTitle}`}
-                    className={`packing-list-category-item ${alternatingClass}`}
-                  >
-                    <div className="name">
-                      {itemProperties.amount && `${itemProperties.amount} x `}
-                      {itemTitle}
+              {[...items.values()]
+                .sort((i1, i2) => i1.order - i2.order)
+                .map((itemProperties, index) => {
+                  const alternatingClass = index % 2 === 0 ? "even" : "uneven";
+                  return (
+                    <div
+                      key={`${title}-${itemProperties.name}`}
+                      className={`packing-list-category-item ${alternatingClass}`}
+                    >
+                      <div className="name">
+                        {itemProperties.amount && `${itemProperties.amount} x `}
+                        {itemProperties.name}
+                      </div>
+                      <div className="weight">
+                        {itemProperties.weight && `${itemProperties.weight * (itemProperties.amount || 1)}g`}
+                      </div>
+                      <div className="checkbox">
+                        {showConfiguration && (
+                          <span className="link" onClick={() => handleItemClick(title, itemProperties.name)}>
+                            X
+                          </span>
+                        )}
+                      </div>
                     </div>
-                    <div className="weight">
-                      {itemProperties.weight &&
-                        `${itemProperties.weight * (itemProperties.amount || 1)}g`}
-                    </div>
-                    <div className="checkbox">
-                      {showConfiguration && (
-                        <span className="link" onClick={() => handleItemClick(title, itemTitle)}>
-                          X
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           );
         })}
