@@ -1,11 +1,11 @@
 import { Container, Navbar } from "react-bootstrap";
 import React from "react";
-import { PackingListConfig } from "../../types/packing-list-config";
-import { ItemProperties } from "../../App";
+import { Configuration } from "@/types/configuration";
+import { PackingListItem } from "@/types/packing-list-item";
 
 export interface HeaderOpts {
-  config: PackingListConfig;
-  itemGroups: Map<string, Map<string, ItemProperties>>;
+  config: Configuration;
+  itemGroups: Map<string, Map<string, PackingListItem>>;
 }
 
 export const Header = ({ config, itemGroups }: HeaderOpts) => {

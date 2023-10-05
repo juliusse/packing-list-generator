@@ -1,11 +1,11 @@
 import { Col, Container, Row } from "react-bootstrap";
 import React, { useEffect } from "react";
-import { PackingListConfig } from "../../types/packing-list-config";
+import { Configuration } from "@/types/configuration";
 import "./config.scss";
 
 export interface ConfigOpts {
-  config: PackingListConfig;
-  onConfigChanged: (config: PackingListConfig) => void;
+  config: Configuration;
+  onConfigChanged: (config: Configuration) => void;
 }
 
 function chunkArray<T>(array: T[], chunkSize: number): T[][] {

@@ -7,6 +7,7 @@
 body {
   background: #ccc;
 }
+
 .app {
   margin: 0 auto;
   width: 210mm;
@@ -20,33 +21,39 @@ body {
   cursor: pointer;
   font-weight: bold;
 }
+
 .packing-list {
   max-height: 290mm;
   display: flex;
   align-content: flex-start;
   flex-flow: column wrap;
+
   .packing-list-category {
     margin: 5px 30px 0px 20px;
     width: 330px;
     font-size: 15px;
     font-family: monospace;
+
     .name {
       border: 1px solid #ddd;
       border-top: none;
       padding: 0px 3px 0px 3px;
       flex-grow: 1;
     }
+
     .weight {
       width: 35px;
       text-align: right;
       border-bottom: 1px solid #ddd;
       border-right: 1px solid #ddd;
     }
+
     .checkbox {
       width: 30px;
       border-bottom: 1px solid #ddd;
       border-right: 1px solid #ddd;
     }
+
     .packing-list-category-title {
       //border: 1px solid #ddd;
       font-weight: bold;
@@ -54,14 +61,6 @@ body {
       background: #ccc;
       display: flex;
       flex-flow: row nowrap;
-    }
-    .packing-list-category-item {
-      display: flex;
-      flex-flow: row nowrap;
-
-      &.uneven {
-        background: #eee;
-      }
     }
   }
 }

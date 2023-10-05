@@ -1,25 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import { PackingListConfig } from "./types/packing-list-config";
-import { Category } from "./types/category";
+import { Configuration, ConfigurationCategory } from "./types/configuration";
 import { Config } from "./components/Config/Config";
 import { Header } from "./components/Header/Header";
-
-export type ItemProperties = {
-  order: number;
-  name: string;
-  weight?: number;
-  amount?: number;
-};
+import { PackingListItem as Item } from "@/types/packing-list-item";
+import { PackingListItem } from "@/components/PackingListItem/PackingListItem";
 
 declare global {
   interface Window {
-    config: Category[];
+    config: ConfigurationCategory[];
   }
 }
 
 const App: React.FC = () => {
-  const [config, setConfig] = useState<PackingListConfig>({
+  const [config, setConfig] = useState<Configuration>({
     allCategories: window.config,
     numberOfDays: 7,
     selectedCategories: ["Basics"],
@@ -27,29 +21,23 @@ const App: React.FC = () => {
     showConfiguration: true,
   });
 
-  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, ItemProperties>>>(new Map());
+  const [itemGroups, setItemGroups] = useState<Map<string, Map<string, Item>>>(new Map());
 
-  const handleConfigChange = (config: PackingListConfig) => {
-    setConfig({
-      allCategories: config.allCategories,
-      numberOfDays: config.numberOfDays,
-      selectedCategories: config.selectedCategories,
-      title: config.title,
-      showConfiguration: config.showConfiguration,
-    });
+  const handleConfigChange = (config: Configuration) => {
+    setConfig({ ...config });
   };
 
-  const handleItemClick = (category: string, item: string) => {
+  const handleItemRemove = (category: string, item: string) => {
     itemGroups.get(category)?.delete(item);
     console.log(category, item);
     setItemGroups(new Map(itemGroups));
   };
 
   useEffect(() => {
-    const itemGroups: Map<string, Map<string, ItemProperties>> = new Map();
+    const itemGroups: Map<string, Map<string, Item>> = new Map();
 
     config.selectedCategories.forEach((c) => {
-      const categoryItems = (config.allCategories.find((c2) => c2.name == c) as Category)?.items;
+      const categoryItems = (config.allCategories.find((c2) => c2.name == c) as ConfigurationCategory)?.items;
 
       categoryItems?.forEach((item) => {
         const group = item.itemCategory;
@@ -105,28 +93,17 @@ const App: React.FC = () => {
               </div>
               {[...items.values()]
                 .sort((i1, i2) => i1.order - i2.order)
-                .map((itemProperties, index) => {
-                  const alternatingClass = index % 2 === 0 ? "even" : "uneven";
+                .map((item, index) => {
+                  const bgColor = index % 2 === 0 ? "#fff" : "#eee";
                   return (
-                    <div
-                      key={`${title}-${itemProperties.name}`}
-                      className={`packing-list-category-item ${alternatingClass}`}
-                    >
-                      <div className="name">
-                        {itemProperties.amount && `${itemProperties.amount} x `}
-                        {itemProperties.name}
-                      </div>
-                      <div className="weight">
-                        {itemProperties.weight && `${itemProperties.weight * (itemProperties.amount || 1)}g`}
-                      </div>
-                      <div className="checkbox">
-                        {config.showConfiguration && (
-                          <span className="link" onClick={() => handleItemClick(title, itemProperties.name)}>
-                            X
-                          </span>
-                        )}
-                      </div>
-                    </div>
+                    <PackingListItem
+                      key={`${title}-${item.name}`}
+                      config={config}
+                      groupTitle={title}
+                      item={item}
+                      bgColor={bgColor}
+                      onRemove={handleItemRemove}
+                    />
                   );
                 })}
             </div>
