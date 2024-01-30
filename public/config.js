@@ -34,6 +34,7 @@ const fahrradShirt = { order: o++, itemCategory, name: "Fahrradshirt", amount: 2
 const zipWanderhose = { order: o++, itemCategory, name: "Zipwanderhose", amount: 1, type: "FIX", weight: 415 };
 const wanderhose = { order: o++, itemCategory, name: "Wanderhose", amount: 1, type: "FIX" };
 const schlauchtuch = { order: o++, itemCategory, name: "Schlauchtuch", amount: 1, type: "FIX", weight: 40 };
+const dickeOma = { order: o++, itemCategory, name: "Winderbuff", amount: 1, type: "FIX" };
 const basecap = { order: o++, itemCategory, name: "Basecap", amount: 1, type: "FIX" };
 const fahrradHandschuhe = { order: o++, itemCategory, name: "Fahrradhandschuhe", amount: 1, type: "FIX" };
 const wandershirt = { order: o++, itemCategory, name: "Wandershirt", amount: 3, type: "FIX" };
@@ -44,6 +45,8 @@ const kletterHose = { order: o++, itemCategory, name: "Kletterhose", amount: 1, 
 const kletterShirt = { order: o++, itemCategory, name: "Klettershirt", amount: 0.5, type: "PER_DAY" };
 const kletterPullover = { order: o++, itemCategory, name: "Kletterpullover", amount: 1, type: "FIX" };
 const muetze = { order: o++, itemCategory, name: "Mütze", amount: 1, type: "FIX", weight: 70 };
+
+
 
 // Hygiene
 itemCategory = "Hygiene";
@@ -157,6 +160,18 @@ const karabinerSchlingenTube = {
   name: "Karabiner, Schlingen, Tuber",
   type: "NO_AMOUNT",
 };
+
+// Winterurlaub
+itemCategory = "Winterurlaub";
+const ski = { order: o++, itemCategory, name: "Ski", type: "NO_AMOUNT" };
+const skistoecker = { order: o++, itemCategory, name: "Skistöcker", type: "NO_AMOUNT" };
+const skibrille = { order: o++, itemCategory, name: "Skibrille", type: "NO_AMOUNT" };
+const skihelm = { order: o++, itemCategory, name: "Skihelm", type: "NO_AMOUNT" };
+const skisocken = { order: o++, itemCategory, name: "Skisocken", amount: 2, type: "FIX" };
+const skihose = { order: o++, itemCategory, name: "Skihose", amount: 1, type: "FIX" };
+const skipullover = { order: o++, itemCategory, name: "Skipullover", amount: 1, type: "FIX" };
+const skijacke = { order: o++, itemCategory, name: "Skijacke", amount: 1, type: "FIX" };
+const skischuhe = { order: o++, itemCategory, name: "Skischuhe", amount: 1, type: "FIX" };
 
 // Taschen
 itemCategory = "Taschen";
@@ -350,6 +365,25 @@ const config = [
       fingertape,
       vorhaengeschloss,
       ausweiskopie,
+    ],
+  },
+  {
+    name: "Skiurlaub",
+    items: [
+      ski,
+      skistoecker,
+
+      skischuhe,
+      skisocken,
+      skihose,
+      merinoUnterwaesche,
+
+      skipullover,
+      dickeOma,
+      skijacke,
+
+      skibrille,
+      skihelm
     ],
   },
   {
