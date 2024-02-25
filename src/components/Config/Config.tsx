@@ -1,10 +1,10 @@
 import { Col, Container, Row } from "react-bootstrap";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Configuration } from "@/types/configuration";
 import "./config.scss";
 
 export interface ConfigOpts {
-  config: Configuration;
+  initialConfig: Configuration;
   onConfigChanged: (config: Configuration) => void;
 }
 
@@ -20,18 +20,21 @@ function chunkArray<T>(array: T[], chunkSize: number): T[][] {
   return chunks;
 }
 
-export const Config = ({ config, onConfigChanged }: ConfigOpts) => {
+export const Config = ({ initialConfig, onConfigChanged }: ConfigOpts) => {
+  const [config, setConfig] = useState<Configuration>(initialConfig);
   const configChunks = chunkArray(config.allCategories, 4);
 
   console.log(config);
 
   const handleDayChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     config.numberOfDays = event.target.valueAsNumber;
+    setConfig(config);
     onConfigChanged(config);
   };
 
   const handleTitleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     config.title = event.target.value;
+    setConfig(config);
     onConfigChanged(config);
   };
 
@@ -45,6 +48,7 @@ export const Config = ({ config, onConfigChanged }: ConfigOpts) => {
         newCategories = config.selectedCategories.filter((c) => c != categoryName);
       }
       config.selectedCategories = newCategories;
+      setConfig(config);
       onConfigChanged(config);
       console.log(newCategories);
     };
@@ -54,10 +58,12 @@ export const Config = ({ config, onConfigChanged }: ConfigOpts) => {
     function onKeyDown(e: { key: string }) {
       if (e.key === "c") {
         config.showConfiguration = true;
+        setConfig(config);
         onConfigChanged(config);
       }
       if (e.key === "v") {
         config.showConfiguration = false;
+        setConfig(config);
         onConfigChanged(config);
       }
     }

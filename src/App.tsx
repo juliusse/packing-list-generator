@@ -73,7 +73,7 @@ const App: React.FC = () => {
   return (
     <div className="app">
       <Header config={config} itemGroups={itemGroups} />
-      <Config config={config} onConfigChanged={handleConfigChange} />
+      <Config initialConfig={config} onConfigChanged={handleConfigChange} />
       <div className="packing-list">
         {[...itemGroups].map(([title, items]) => {
           let groupTotalWeight = 0;
