@@ -56,6 +56,7 @@ const zahnbuerste = { order: o++, itemCategory, name: "Zahnbürste / Zahnpasta",
 const buerste = { order: o++, itemCategory, name: "Bürste", amount: 1, type: "FIX", weight: 50 };
 const sonnencreme = { order: o++, itemCategory, name: "Sonnencreme", amount: 1, type: "FIX", weight: 200 };
 const waschlappen = { order: o++, itemCategory, name: "Waschlappen", amount: 1, type: "FIX", weight: 30 };
+const klopapier = { order: o++, itemCategory, name: "Klopapier", amount: 0.33, type: "PER_DAY", weight: 200 };
 const duschzeug = { order: o++, itemCategory, name: "Duschzeug", amount: 1, type: "FIX" };
 const handtuch = { order: o++, itemCategory, name: "Handtuch", amount: 2, type: "FIX", weight: 170 };
 const pinzetteScherePfeile = {
@@ -68,6 +69,16 @@ const pinzetteScherePfeile = {
 const ohrstaebchen = { order: o++, itemCategory, name: "Ohrstäbchen", type: "NO_AMOUNT" };
 const taschentuecher = { order: o++, itemCategory, name: "Taschentücher", amount: 0.33, type: "PER_DAY" };
 const handcreme = { order: o++, itemCategory, name: "Handcreme", type: "NO_AMOUNT" };
+
+// Zelten
+itemCategory = "Zelten";
+
+const zelt = { order: o++, itemCategory, name: "Zelt", type: "NO_AMOUNT", weight: 3000 };
+const zeltLappen = { order: o++, itemCategory, name: "Zeltlappen", type: "NO_AMOUNT" };
+const zeltPlane = { order: o++, itemCategory, name: "Zeltplane", type: "NO_AMOUNT" };
+const schlafsack = { order: o++, itemCategory, name: "Schlafsack", type: "NO_AMOUNT", weight: 1200 };
+const isomatte = { order: o++, itemCategory, name: "Isomatte", type: "NO_AMOUNT", weight: 800 };
+const campingStuhl = { order: o++, itemCategory, name: "Campingstuhl", type: "NO_AMOUNT", weight: 2000 };
 
 // Misc
 itemCategory = "Misc";
@@ -115,6 +126,7 @@ const portemonaie = {
 };
 const haekelzeug = { order: o++, itemCategory, name: "Häkelzeug", type: "NO_AMOUNT" };
 const snacks = { order: o++, itemCategory, name: "Snacks", type: "NO_AMOUNT" };
+const thermosKanne = { order: o++, itemCategory, name: "Thermoskanne", type: "NO_AMOUNT" };
 
 // Technik
 itemCategory = "Technik";
@@ -139,11 +151,28 @@ const spork = { order: o++, itemCategory, name: "Spork/Löffel", amount: 1, type
 const taschenMesser = { order: o++, itemCategory, name: "Taschenmesser", amount: 1, type: "FIX" };
 const kuechenRolle = { order: o++, itemCategory, name: "Küchenrolle", type: "NO_AMOUNT" };
 const kleinePlastikbeutel = { order: o++, itemCategory, name: "Kleine Plastikbeutel", type: "NO_AMOUNT" };
+const campingKocher = { order: o++, itemCategory, name: "Campingkocher", type: "NO_AMOUNT" };
+const gaskartusche = { order: o++, itemCategory, name: "Gaskartusche", amount: 0.2, type: "PER_DAY" };
+const topfPfanne = { order: o++, itemCategory, name: "Topf/Pfanne", type: "NO_AMOUNT" };
+const schuessel = { order: o++, itemCategory, name: "Schüssel", type: "NO_AMOUNT" };
+const becher = { order: o++, itemCategory, name: "Becher (zb Unionbecher)", type: "NO_AMOUNT" };
+const messerGabelLoeffel = { order: o++, itemCategory, name: "Messer/Gabel/Löffel", type: "NO_AMOUNT" };
+const geschirrHandtuch = { order: o++, itemCategory, name: "Geschirrhandtuch", type: "NO_AMOUNT" };
+const spuelzeug = { order: o++, itemCategory, name: "Spülmittel/Schwamm", type: "NO_AMOUNT" };
 
 // Essen
 itemCategory = "Essen";
-const nuesse = { order: o++, itemCategory, name: "Nüsse", amount: 1, type: "FIX" };
 const schokokekse = { order: o++, itemCategory, name: "Schokokekse", amount: 0.33, type: "PER_DAY" };
+const muesli = { order: o++, itemCategory, name: "Müsli", amount: 0.33, type: "PER_DAY" };
+const joghurt = { order: o++, itemCategory, name: "Joghurt", amount: 0.33, type: "PER_DAY" };
+const apfel = { order: o++, itemCategory, name: "Apfel", amount: 1, type: "PER_DAY" };
+const banane = { order: o++, itemCategory, name: "Banane", amount: 1, type: "PER_DAY" };
+const nuesse = { order: o++, itemCategory, name: "Nussmix", amount: 0.33, type: "PER_DAY", weight: 200 };
+const mueslieriegel = { order: o++, itemCategory, name: "Müslieriegel", amount: 1, type: "PER_DAY" };
+const brotscheiben = { order: o++, itemCategory, name: "Brotscheiben", amount: 0.33, type: "PER_DAY" };
+const aufstrich = { order: o++, itemCategory, name: "Aufstrich", amount: 0.33, type: "PER_DAY" };
+const schokocreme = { order: o++, itemCategory, name: "Schokocreme", amount: 0.1, type: "PER_DAY" };
+const fertigessenAbendbrot = { order: o++, itemCategory, name: "Fertigessen Abendbrot", amount: 1, type: "FIX", weight: 800 };
 
 // Werkzeug
 itemCategory = "Werkzeug";
@@ -420,6 +449,58 @@ const config = [
       controller,
 
       picknickDecke,
+    ],
+  },
+  {
+    name: "Camping",
+    items: [
+      // Kleidung
+      merinoUnterwaesche,
+
+      // Hygiene
+      klopapier,
+
+      // Zeltplatz
+      zelt,
+      zeltLappen,
+      zeltPlane,
+      schlafsack,
+      isomatte,
+      campingStuhl,
+
+      // kochen
+      campingKocher,
+      gaskartusche,
+      topfPfanne,
+
+      spork,
+      schuessel,
+      becher,
+      messerGabelLoeffel,
+
+      taschenMesser,
+      kuechenRolle,
+      geschirrHandtuch,
+      spuelzeug,
+
+      // Essen
+      muesli,
+      joghurt,
+      apfel,
+      banane,
+      nuesse,
+      mueslieriegel,
+      brotscheiben,
+      aufstrich,
+      schokocreme,
+      fertigessenAbendbrot,
+
+
+      // Misc
+      kleinePlastikbeutel,
+      thermosKanne,
+      picknickDecke,
+
     ],
   },
 ];
