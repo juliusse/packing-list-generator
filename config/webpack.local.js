@@ -19,7 +19,16 @@ const devConfig = {
     rules: [
       {
         test: /\.(sa|sc|c)ss$/,
-        use: ["style-loader", "css-loader", "resolve-url-loader", "postcss-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "resolve-url-loader", "postcss-loader",
+          {
+            loader: require.resolve("sass-loader"),
+            options: {
+              sassOptions: {
+                silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'],
+              },
+            },
+          },
+        ],
       },
     ],
   },

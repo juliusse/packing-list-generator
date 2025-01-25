@@ -38,6 +38,7 @@ const prodConfig = {
               sourceMap: true,
               sassOptions: {
                 style: "compressed",
+                silenceDeprecations: ['mixed-decls', 'color-functions', 'global-builtin', 'import'],
               },
             },
           },

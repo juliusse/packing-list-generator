@@ -135,9 +135,8 @@ const ladekabel = { order: o++, itemCategory, name: "Ladekabel", type: "NO_AMOUN
 const powerbank = { order: o++, itemCategory, name: "Powerbank (voll)", type: "NO_AMOUNT", weight: 380 };
 const kindle = { order: o++, itemCategory, name: "Kindle/Tablet", type: "NO_AMOUNT", weight: 325 };
 const kamera = { order: o++, itemCategory, name: "Kamera", type: "NO_AMOUNT" };
-const kopfhoehrer = { order: o++, itemCategory, name: "Kopfhöhrer (NC?)", type: "NO_AMOUNT" };
+const kopfhoehrer = { order: o++, itemCategory, name: "Kopfhöhrer/ANC Kopfhörer", type: "NO_AMOUNT" };
 const arbeitsLaptop = { order: o++, itemCategory, name: "Arbeitslaptop & Netzteil", type: "NO_AMOUNT" };
-const kopfhoererKlinke = { order: o++, itemCategory, name: "Kopfhörer mit Klinke", type: "NO_AMOUNT" };
 const dockingstationAdapter = { order: o++, itemCategory, name: "Dockingstation Adapter", type: "NO_AMOUNT" };
 const gamingLaptop = { order: o++, itemCategory, name: "Gaminglaptop & Netzteil", type: "NO_AMOUNT" };
 const controller = { order: o++, itemCategory, name: "Controller", type: "NO_AMOUNT" };
@@ -172,7 +171,14 @@ const mueslieriegel = { order: o++, itemCategory, name: "Müslieriegel", amount:
 const brotscheiben = { order: o++, itemCategory, name: "Brotscheiben", amount: 0.33, type: "PER_DAY" };
 const aufstrich = { order: o++, itemCategory, name: "Aufstrich", amount: 0.33, type: "PER_DAY" };
 const schokocreme = { order: o++, itemCategory, name: "Schokocreme", amount: 0.1, type: "PER_DAY" };
-const fertigessenAbendbrot = { order: o++, itemCategory, name: "Fertigessen Abendbrot", amount: 1, type: "FIX", weight: 800 };
+const fertigessenAbendbrot = {
+  order: o++,
+  itemCategory,
+  name: "Fertigessen Abendbrot",
+  amount: 1,
+  type: "FIX",
+  weight: 800,
+};
 
 // Werkzeug
 itemCategory = "Werkzeug";
@@ -438,18 +444,11 @@ const config = [
   },
   {
     name: "Workation",
-    items: [arbeitsLaptop, dockingstationAdapter, kopfhoererKlinke],
+    items: [arbeitsLaptop, dockingstationAdapter],
   },
   {
     name: "FeWo",
-    items: [
-      gamingLaptop,
-      maus,
-      bluetoothSpeaker,
-      controller,
-
-      picknickDecke,
-    ],
+    items: [gamingLaptop, maus, bluetoothSpeaker, controller, picknickDecke],
   },
   {
     name: "Camping",
@@ -495,12 +494,10 @@ const config = [
       schokocreme,
       fertigessenAbendbrot,
 
-
       // Misc
       kleinePlastikbeutel,
       thermosKanne,
       picknickDecke,
-
     ],
   },
 ];
