@@ -2,22 +2,22 @@ let itemCategory = "";
 let o = 1;
 // Kleidung
 itemCategory = "Kleidung";
-const socken = { order: o++, itemCategory, name: "Socken", amount: 0.3, type: "PER_DAY" };
+const socken = { order: o++, itemCategory, name: "Socken", amount: 0.3, type: "PER_DAY", weight: 47 };
 const dickeSocken = { order: o++, itemCategory, name: "Dicke Socken", amount: 1, type: "FIX" };
 const unterwaesche = { order: o++, itemCategory, name: "Unterwäsche", amount: 1, type: "PER_DAY", weight: 65 };
-const jeans = { order: o++, itemCategory, name: "Jeans", amount: 1, type: "FIX" };
-const kurzeHose = { order: o++, itemCategory, name: "Kurze Hose", amount: 1, type: "FIX" };
-const tShirt = { order: o++, itemCategory, name: "T-Shirt", amount: 0.5, type: "PER_DAY" };
+const jeans = { order: o++, itemCategory, name: "Jeans", amount: 1, type: "FIX", weight: 500 };
+const kurzeHose = { order: o++, itemCategory, name: "Kurze Hose", amount: 1, type: "FIX", weight: 375 };
+const tShirt = { order: o++, itemCategory, name: "T-Shirt", amount: 0.5, type: "PER_DAY", weight: 150 };
 const pullover = { order: o++, itemCategory, name: "Pullover", amount: 1, type: "FIX" };
-const fleeceJacke = { order: o++, itemCategory, name: "Fleecejacke", amount: 1, type: "FIX", weight: 330 };
-const schlafshirt = { order: o++, itemCategory, name: "Schlafshirt", amount: 1, type: "FIX" };
+const fleeceJacke = { order: o++, itemCategory, name: "Fleecejacke", amount: 1, type: "FIX", weight: 320 };
+const schlafshirt = { order: o++, itemCategory, name: "Schlafshirt", amount: 1, type: "FIX", weight: 150 };
 const jogginghose = {
   order: o++,
   itemCategory,
   name: "Jogginghose (Kurz/Lang)",
   amount: 1,
   type: "FIX",
-  weight: 300,
+  weight: 310,
 };
 const regenjacke = { order: o++, itemCategory, name: "Regenjacke", amount: 1, type: "FIX", weight: 485 };
 const softshelljacke = {
@@ -31,43 +31,47 @@ const softshelljacke = {
 const badehose = { order: o++, itemCategory, name: "Badehose", amount: 1, type: "FIX", weight: 150 };
 const fahrradShirt = { order: o++, itemCategory, name: "Fahrradshirt", amount: 2, type: "FIX" };
 const zipWanderhose = { order: o++, itemCategory, name: "Zipwanderhose", amount: 1, type: "FIX", weight: 415 };
+const kletterWanderHose = { order: o++, itemCategory, name: "Zipwanderhose", amount: 1, type: "FIX", weight: 200 };
 const wanderhose = { order: o++, itemCategory, name: "Wanderhose", amount: 1, type: "FIX" };
 const schlauchtuch = { order: o++, itemCategory, name: "Schlauchtuch", amount: 1, type: "FIX", weight: 40 };
 const dickeOma = { order: o++, itemCategory, name: "Winderbuff", amount: 1, type: "FIX" };
 const basecap = { order: o++, itemCategory, name: "Basecap", amount: 1, type: "FIX" };
 const fahrradHandschuhe = { order: o++, itemCategory, name: "Fahrradhandschuhe", amount: 1, type: "FIX" };
-const wandershirt = { order: o++, itemCategory, name: "Wandershirt", amount: 3, type: "FIX" };
+const wandershirt = { order: o++, itemCategory, name: "Wandershirt", amount: 3, type: "FIX", weight: 150 };
 const merinoUnterwaesche = { order: o++, itemCategory, name: "Merinounterwäsche", amount: 1, type: "FIX" };
 const wanderSocken = { order: o++, itemCategory, name: "Wandersocken", amount: 2, type: "FIX", weight: 65 };
 const kletterHose = { order: o++, itemCategory, name: "Kletterhose", amount: 1, type: "FIX" };
 const kletterShirt = { order: o++, itemCategory, name: "Klettershirt", amount: 0.5, type: "PER_DAY" };
 const kletterPullover = { order: o++, itemCategory, name: "Kletterpullover", amount: 1, type: "FIX" };
-const muetze = { order: o++, itemCategory, name: "Mütze", amount: 1, type: "FIX", weight: 70 };
+const muetze = { order: o++, itemCategory, name: "Mütze", amount: 1, type: "FIX", weight: 72 };
+const handschuhe = { order: o++, itemCategory, name: "Handschuhe", amount: 1, type: "FIX", weight: 56 };
 
 // Schuhe
 itemCategory = "Schuhe";
-const flipflops = { order: o++, itemCategory, name: "Flipflops", amount: 1, type: "FIX", weight: 300 };
+const flipflops = { order: o++, itemCategory, name: "Flipflops", amount: 1, type: "FIX", weight: 290 };
 const wanderSchuhe = { order: o++, itemCategory, name: "Wanderschuhe", amount: 1, type: "FIX" };
 const turnSchuhe = { order: o++, itemCategory, name: "Turnschuhe", amount: 1, type: "FIX" };
 
 // Hygiene
 itemCategory = "Hygiene";
-const zahnbuerste = { order: o++, itemCategory, name: "Zahnbürste / Zahnpasta", amount: 1, type: "FIX", weight: 150 };
+const zahnbuerste = { order: o++, itemCategory, name: "Zahnbürste / Zahnpasta", amount: 1, type: "FIX", weight: 110 };
 const buerste = { order: o++, itemCategory, name: "Bürste", amount: 1, type: "FIX", weight: 50 };
-const sonnencreme = { order: o++, itemCategory, name: "Sonnencreme", amount: 1, type: "FIX", weight: 200 };
+const sonnencreme = { order: o++, itemCategory, name: "Sonnencreme", amount: 1, type: "FIX", weight: 120 };
 const waschlappen = { order: o++, itemCategory, name: "Waschlappen", amount: 1, type: "FIX", weight: 30 };
 const klopapier = { order: o++, itemCategory, name: "Klopapier", amount: 0.33, type: "PER_DAY", weight: 200 };
-const duschzeug = { order: o++, itemCategory, name: "Duschzeug", amount: 1, type: "FIX" };
-const handtuch = { order: o++, itemCategory, name: "Handtuch", amount: 2, type: "FIX", weight: 170 };
-const pinzetteScherePfeile = {
+const duschzeug = { order: o++, itemCategory, name: "Duschzeug", amount: 1, type: "FIX", weight: 150 };
+const handtuch = { order: o++, itemCategory, name: "Handtuch", amount: 2, type: "FIX", weight: 200 };
+const pinzetteSchere = {
   order: o++,
   itemCategory,
-  name: "Pinzette/Nagelschere/Pfeile",
+  name: "Pinzette/Nagelschere",
   amount: 1,
   type: "NO_AMOUNT",
+  weight: 35,
 };
-const ohrstaebchen = { order: o++, itemCategory, name: "Ohrstäbchen", type: "NO_AMOUNT" };
-const taschentuecher = { order: o++, itemCategory, name: "Taschentücher", amount: 0.33, type: "PER_DAY" };
+const ohrstaebchen = { order: o++, itemCategory, name: "Ohrstäbchen", type: "NO_AMOUNT", weight: 25 };
+const rasierer = { order: o++, itemCategory, name: "Rasierer", type: "NO_AMOUNT", weight: 38 };
+const taschentuecher = { order: o++, itemCategory, name: "Taschentücher", amount: 0.33, type: "PER_DAY", weight: 28 };
 const handcreme = { order: o++, itemCategory, name: "Handcreme", type: "NO_AMOUNT" };
 
 // Zelten
@@ -76,7 +80,7 @@ itemCategory = "Zelten";
 const zelt = { order: o++, itemCategory, name: "Zelt", type: "NO_AMOUNT", weight: 3000 };
 const zeltLappen = { order: o++, itemCategory, name: "Zeltlappen", type: "NO_AMOUNT" };
 const zeltPlane = { order: o++, itemCategory, name: "Zeltplane", type: "NO_AMOUNT" };
-const schlafsack = { order: o++, itemCategory, name: "Schlafsack", type: "NO_AMOUNT", weight: 1200 };
+const winterSchlafsack = { order: o++, itemCategory, name: "Winterschlafsack", type: "NO_AMOUNT", weight: 1200 };
 const isomatte = { order: o++, itemCategory, name: "Isomatte", type: "NO_AMOUNT", weight: 800 };
 const campingStuhl = { order: o++, itemCategory, name: "Campingstuhl", type: "NO_AMOUNT", weight: 2000 };
 
@@ -97,46 +101,49 @@ const buecher = { order: o++, itemCategory, name: "Bücher", type: "NO_AMOUNT" }
 const picknickDecke = { order: o++, itemCategory, name: "Picknickdecke", type: "NO_AMOUNT" };
 
 const spiele = { order: o++, itemCategory, name: "Spiele", type: "NO_AMOUNT" };
-const plastiktueten = { order: o++, itemCategory, name: "Plastiktüten", type: "NO_AMOUNT" };
+const wassersack = { order: o++, itemCategory, name: "Wassersack", type: "FIX", amount: 3, weight: 23 };
 const stoffbeutel = { order: o++, itemCategory, name: "Stoffbeutel", type: "NO_AMOUNT" };
 const kleineWassersaecke = { order: o++, itemCategory, name: "Wassersack (5/10L)", type: "NO_AMOUNT" };
 const gpsTracks = { order: o++, itemCategory, name: "GPS Tracks", type: "NO_AMOUNT" };
 const wanderstoecker = { order: o++, itemCategory, name: "Wanderstöcker", type: "NO_AMOUNT" };
 const knieBandage = { order: o++, itemCategory, name: "Kniebandage", type: "NO_AMOUNT" };
 const naehzeug = { order: o++, itemCategory, name: "Nähzeug", type: "NO_AMOUNT", weight: 30 };
-const kleinerSchlafsack = {
+const sommerSchlafsack = {
   order: o++,
   itemCategory,
-  name: "Kleiner Schlafsack",
-  weight: 1100,
+  name: "Sommerschlafsack",
+  weight: 600,
   type: "NO_AMOUNT",
 };
 const pilgerausweis = { order: o++, itemCategory, name: "Pilgerausweis", type: "NO_AMOUNT" };
 const wanderfuehrer = { order: o++, itemCategory, name: "Wanderführer", type: "NO_AMOUNT", weight: 240 };
-const tagebuch = { order: o++, itemCategory, name: "Tagebuch", type: "NO_AMOUNT", weight: 170 };
+const tagebuch = { order: o++, itemCategory, name: "Tagebuch", type: "NO_AMOUNT", weight: 175 };
 const schafsWolle = { order: o++, itemCategory, name: "Schafswolle", type: "NO_AMOUNT" };
 const fingertape = { order: o++, itemCategory, name: "Fingertape", type: "NO_AMOUNT", weight: 40 };
-const vorhaengeschloss = { order: o++, itemCategory, name: "Vorhängeschloss", type: "NO_AMOUNT" };
+const vorhaengeschloss = { order: o++, itemCategory, name: "Vorhängeschloss", type: "NO_AMOUNT", weight: 115 };
 const ausweiskopie = { order: o++, itemCategory, name: "Ausweiskopie", type: "NO_AMOUNT" };
 const portemonaie = {
   order: o++,
   itemCategory,
   name: "Portem. (Perso, Krankenk, Visa)",
   type: "NO_AMOUNT",
+  weight: 230,
 };
-const haekelzeug = { order: o++, itemCategory, name: "Häkelzeug", type: "NO_AMOUNT" };
+const haekelzeug = { order: o++, itemCategory, name: "Häkelzeug", type: "NO_AMOUNT", weight: 300 };
 const snacks = { order: o++, itemCategory, name: "Snacks", type: "NO_AMOUNT" };
 const thermosKanne = { order: o++, itemCategory, name: "Thermoskanne", type: "NO_AMOUNT" };
 
 // Technik
 itemCategory = "Technik";
-const handy = { order: o++, itemCategory, name: "Handy", type: "NO_AMOUNT", weight: 170 };
-const ladekabel = { order: o++, itemCategory, name: "Ladekabel", type: "NO_AMOUNT" };
-const powerbank = { order: o++, itemCategory, name: "Powerbank (voll)", type: "NO_AMOUNT", weight: 380 };
-const kindle = { order: o++, itemCategory, name: "Kindle/Tablet", type: "NO_AMOUNT", weight: 325 };
+const handy = { order: o++, itemCategory, name: "Handy", type: "NO_AMOUNT", weight: 225 };
+const ladekabel = { order: o++, itemCategory, name: "Ladekabel", type: "NO_AMOUNT", weight: 95 };
+const powerbank = { order: o++, itemCategory, name: "Powerbank 10000 mAh (voll)", type: "NO_AMOUNT", weight: 150 };
+const kindle = { order: o++, itemCategory, name: "Kindle/Tablet", type: "NO_AMOUNT", weight: 215 };
 const kamera = { order: o++, itemCategory, name: "Kamera", type: "NO_AMOUNT" };
-const kopfhoehrer = { order: o++, itemCategory, name: "Kopfhöhrer/ANC Kopfhörer", type: "NO_AMOUNT" };
-const arbeitsLaptop = { order: o++, itemCategory, name: "Arbeitslaptop & Netzteil", type: "NO_AMOUNT" };
+const kopfhoehrer = { order: o++, itemCategory, name: "Kabelkopfhörer", type: "NO_AMOUNT", weight: 14 };
+const airPodsPro = { order: o++, itemCategory, name: "Air Pods Pro", type: "NO_AMOUNT", weight: 61 };
+const MacBookPro = { order: o++, itemCategory, name: "MacBook Pro & Netzteil", type: "NO_AMOUNT" };
+const MacBookAir = { order: o++, itemCategory, name: "MacBook Air, Hülle, Netzteil", type: "NO_AMOUNT", weight: 1500 };
 const dockingstationAdapter = { order: o++, itemCategory, name: "Dockingstation Adapter", type: "NO_AMOUNT" };
 const gamingLaptop = { order: o++, itemCategory, name: "Gaminglaptop & Netzteil", type: "NO_AMOUNT" };
 const controller = { order: o++, itemCategory, name: "Controller", type: "NO_AMOUNT" };
@@ -266,6 +273,8 @@ const config = [
       badehose,
       flipflops,
       turnSchuhe,
+      muetze,
+      handschuhe,
 
       // Hygiene
       zahnbuerste,
@@ -274,15 +283,15 @@ const config = [
       waschlappen,
       handtuch,
       duschzeug,
-      pinzetteScherePfeile,
+      pinzetteSchere,
       ohrstaebchen,
+      rasierer,
       taschentuecher,
 
       // Misc
       sonnenbrille,
       brille,
       ersteHilfePlfasterIbu,
-      plastiktueten,
       handy,
       ladekabel,
       powerbank,
@@ -290,6 +299,7 @@ const config = [
       stirnlampe,
       buecher,
       kopfhoehrer,
+      airPodsPro,
       kamera,
       spiele,
       kleinePlastikbeutel,
@@ -298,6 +308,7 @@ const config = [
       tagebuch,
       haekelzeug,
       snacks,
+      wassersack,
     ],
   },
   {
@@ -397,6 +408,7 @@ const config = [
       schlafshirt,
 
       zipWanderhose,
+      kletterWanderHose,
       fleeceJacke,
       softshelljacke,
       regenjacke,
@@ -406,7 +418,7 @@ const config = [
 
       wanderRucksack,
       kleinerQuechuaRucksack,
-      kleinerSchlafsack,
+      sommerSchlafsack,
 
       knieBandage,
 
@@ -444,7 +456,7 @@ const config = [
   },
   {
     name: "Workation",
-    items: [arbeitsLaptop, dockingstationAdapter],
+    items: [MacBookPro, dockingstationAdapter],
   },
   {
     name: "FeWo",
@@ -463,7 +475,7 @@ const config = [
       zelt,
       zeltLappen,
       zeltPlane,
-      schlafsack,
+      winterSchlafsack,
       isomatte,
       campingStuhl,
 
