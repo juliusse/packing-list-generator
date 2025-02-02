@@ -6,16 +6,16 @@ import "./PackingListItem.scss";
 export interface PackingListItemOpts {
   groupTitle: string;
   item: Item;
-  config: Configuration;
   bgColor: string;
   onRemove: (groupName: string, itemName: string) => void;
+  showDeleteButton: boolean;
 }
 
-export const PackingListItem = ({ config, groupTitle, item, bgColor, onRemove }: PackingListItemOpts) => {
+export const PackingListItem = ({ groupTitle, item, bgColor, onRemove, showDeleteButton }: PackingListItemOpts) => {
   const DeleteButton = () => {
     return (
       <>
-        {config.showConfiguration && (
+        {showDeleteButton && (
           <span className="link" onClick={() => onRemove(groupTitle, item.name)}>
             X
           </span>

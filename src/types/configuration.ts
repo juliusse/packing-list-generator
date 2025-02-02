@@ -7,15 +7,12 @@ export type ConfigurationItem = {
   type: "FIX" | "PER_DAY" | "NO_AMOUNT";
 };
 
-export type ConfigurationCategory = {
+export type Activity = {
   name: string;
   items: ConfigurationItem[];
 };
 
 export type Configuration = {
-  allCategories: ConfigurationCategory[];
   numberOfDays: number;
-  selectedCategories: string[];
-  showConfiguration: boolean;
   title: string;
 };

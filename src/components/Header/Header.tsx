@@ -4,11 +4,12 @@ import { Configuration } from "@/types/configuration";
 import { PackingListItem } from "@/types/packing-list-item";
 
 export interface HeaderOpts {
-  config: Configuration;
+  title: string;
+  numberOfDays: number;
   itemGroups: Map<string, Map<string, PackingListItem>>;
 }
 
-export const Header = ({ config, itemGroups }: HeaderOpts) => {
+export const Header = ({ title, numberOfDays, itemGroups }: HeaderOpts) => {
   const calculateTotalWeight = () => {
     let totalWeight = 0;
     itemGroups.forEach((itemGroup) => {
@@ -26,7 +27,7 @@ export const Header = ({ config, itemGroups }: HeaderOpts) => {
     <Navbar bg="light">
       <Container>
         <Navbar.Brand href="#home">
-          {config.title} - {config.numberOfDays} Tage - {calculateTotalWeight()}g
+          {title} - {numberOfDays} Tage - {calculateTotalWeight()}g
         </Navbar.Brand>
       </Container>
     </Navbar>

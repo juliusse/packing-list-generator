@@ -1,31 +1,17 @@
 import React, { useEffect, useState } from "react";
 import "./App.scss";
-import { Configuration, ConfigurationCategory } from "./types/configuration";
+import { Configuration, Activity } from "./types/configuration";
 import { Config } from "./components/Config/Config";
 import { Header } from "./components/Header/Header";
 import { PackingListItem as Item } from "@/types/packing-list-item";
 import { PackingListItem } from "@/components/PackingListItem/PackingListItem";
 
-declare global {
-  interface Window {
-    config: ConfigurationCategory[];
-  }
-}
-
-const App: React.FC = () => {
-  const [config, setConfig] = useState<Configuration>({
-    allCategories: window.config,
-    numberOfDays: 7,
-    selectedCategories: ["Basics"],
-    title: "Packing List Generator",
-    showConfiguration: true,
-  });
-
+const App = ({ activities }: { activities: Activity[] }) => {
+  const [showConfig, setShowConfig] = useState<boolean>(true);
+  const [selectedActivities, setSelectedActivities] = useState<string[]>(["Basics"]);
+  const [numberOfDays, setNumberOfDays] = useState<number>(7);
+  const [title, setTitle] = useState<string>("Packing List Generator");
   const [itemGroups, setItemGroups] = useState<Map<string, Map<string, Item>>>(new Map());
-
-  const handleConfigChange = (config: Configuration) => {
-    setConfig({ ...config });
-  };
 
   const handleItemRemove = (category: string, item: string) => {
     itemGroups.get(category)?.delete(item);
@@ -34,10 +20,25 @@ const App: React.FC = () => {
   };
 
   useEffect(() => {
+    function onKeyDown(e: { key: string }) {
+      if (e.key === "c") {
+        setShowConfig(true);
+      }
+      if (e.key === "v") {
+        setShowConfig(false);
+      }
+    }
+
+    document.addEventListener("keydown", onKeyDown);
+
+    return () => document.removeEventListener("keydown", onKeyDown);
+  }, []);
+
+  useEffect(() => {
     const itemGroups: Map<string, Map<string, Item>> = new Map();
 
-    config.selectedCategories.forEach((c) => {
-      const categoryItems = (config.allCategories.find((c2) => c2.name == c) as ConfigurationCategory)?.items;
+    selectedActivities.forEach((c) => {
+      const categoryItems = (activities.find((c2) => c2.name == c) as Activity)?.items;
 
       categoryItems?.forEach((item) => {
         const group = item.itemCategory;
@@ -53,7 +54,7 @@ const App: React.FC = () => {
             amount = item.amount || undefined;
             break;
           case "PER_DAY":
-            amount = Math.ceil((item.amount || 1) * config.numberOfDays);
+            amount = Math.ceil((item.amount || 1) * numberOfDays);
             break;
           case "NO_AMOUNT":
             amount = undefined;
@@ -68,12 +69,22 @@ const App: React.FC = () => {
     });
     setItemGroups(itemGroups);
     console.log(itemGroups);
-  }, [config]);
+  }, [selectedActivities, numberOfDays]);
 
   return (
     <div className="app">
-      <Header config={config} itemGroups={itemGroups} />
-      <Config initialConfig={config} onConfigChanged={handleConfigChange} />
+      <Header title={title} numberOfDays={numberOfDays} itemGroups={itemGroups} />
+      {showConfig && (
+        <Config
+          activities={activities}
+          title={title}
+          numberOfDays={numberOfDays}
+          selectedActivities={selectedActivities}
+          onDaysChanged={(days) => setNumberOfDays(days)}
+          onTitleChanged={(title) => setTitle(title)}
+          onActivitiesChanged={(activities) => setSelectedActivities(activities)}
+        />
+      )}
       <div className="packing-list">
         {[...itemGroups].map(([title, items]) => {
           let groupTotalWeight = 0;
@@ -98,11 +109,11 @@ const App: React.FC = () => {
                   return (
                     <PackingListItem
                       key={`${title}-${item.name}`}
-                      config={config}
                       groupTitle={title}
                       item={item}
                       bgColor={bgColor}
                       onRemove={handleItemRemove}
+                      showDeleteButton={showConfig}
                     />
                   );
                 })}
